@@ -1,18 +1,12 @@
-FROM gliderlabs/alpine:3.1
+FROM ubuntu:14.04
 
 ENV KIBANA_VERSION 4.0.0-rc1-linux-x64
 
-RUN apk-install curl && \
-    mkdir /opt && \
-    curl -s https://download.elasticsearch.org/kibana/kibana/kibana-${KIBANA_VERSION}.tar.gz | tar zx -C /opt && \
-    apk-install nodejs && \
-    rm -rf /opt/kibana-${KIBANA_VERSION}/node && \
-    mkdir -p /opt/kibana-${KIBANA_VERSION}/node/bin && \
-    ln -sf /usr/bin/node /opt/kibana-${KIBANA_VERSION}/node/bin/node && \
-    apk del curl
+RUN apt-get install -y curl && \
+    curl -s https://download.elasticsearch.org/kibana/kibana/kibana-${KIBANA_VERSION}.tar.gz | tar zx -C /opt
 
-ADD ./run.sh /run.sh
+ADD run.sh /opt/run.sh
 
 EXPOSE 5601
 
-ENTRYPOINT /run.sh
+ENTRYPOINT ["/opt/run.sh"]

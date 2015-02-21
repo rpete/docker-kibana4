@@ -2,6 +2,7 @@
 
 set -e
 
+
 KIBANA_ES_URL=${KIBANA_ES_URL:-http://localhost:9200}
 KIBANA_INDEX=${KIBANA_INDEX:-kibana-int}
 
